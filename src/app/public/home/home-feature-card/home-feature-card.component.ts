@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'wa-home-feature-card',
@@ -8,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeFeatureCardComponent implements OnInit {
 
+  @Input() description: string = '';
+  @Input() icon: string = '';
+  @Input() title: string = '';
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
