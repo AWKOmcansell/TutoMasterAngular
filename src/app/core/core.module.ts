@@ -4,11 +4,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProtectedModule } from '../protected/protected.module';
 import { PublicModule } from '../public/public.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FootbarComponent } from './components/footbar/footbar.component';
 
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    FootbarComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     BrowserAnimationsModule
   ],
   exports: [
-    NavbarComponent
+    NavbarComponent,
+    FootbarComponent
   ]
 })
 export class CoreModule {
