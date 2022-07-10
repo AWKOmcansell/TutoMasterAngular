@@ -1,8 +1,6 @@
-<div class="row">
-    <wa-planning-workday-item *ngFor="let workday of workdays$ | async" 
-    [dueDate]="workday.dueDate"
-    [doneTasks]="workday.doneTasks" 
-    [remainingTasks]="workday.remainingTasks"
-    (workdayRemoved)="onWorkdayRemoved($event)">
+<div class="row row-cols-3">
+    <wa-planning-workday-item *ngFor="let workday of workdays$ | async" [dueDate]="workday.dueDate"
+        [doneTasks]="workday.doneTasks" [remainingTasks]="workday.remainingTasks"
+        (workdayRemoved)="onWorkdayRemoved($event)">
     </wa-planning-workday-item>
 </div>

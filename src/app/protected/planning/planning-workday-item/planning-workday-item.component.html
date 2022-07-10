@@ -1,7 +1,6 @@
 <div class="card border-light mt-3">
-    <div class="card-header">{{ dueDate }}</div>
-    <i class="material-icons md-grey float-end"
-    (click)="removeWorkday(dueDate)">close</i>
+    <div class="card-header">{{ dueDate }} <i class="material-icons md-grey float-end bg-white" (click)="removeWorkday(dueDate)">close</i></div>
+    
     <div class="card-body">
         <p>Tâches restantes : <strong>{{ remainingTasks }}</strong></p>
         <p>Tâches effectuées: <strong>{{ doneTasks }}</strong></p>
