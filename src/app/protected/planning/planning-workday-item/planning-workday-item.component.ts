@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { animFadeIn } from 'src/app/shared/animation/animfadein';
 
   
  
@@ -7,9 +6,6 @@ import { animFadeIn } from 'src/app/shared/animation/animfadein';
   selector: 'wa-planning-workday-item',
   templateUrl: './planning-workday-item.component.html',
   styles: [
-  ],
-  animations:[
-    animFadeIn
   ]
 })
 export class PlanningWorkdayItemComponent implements OnChanges {
@@ -18,7 +14,8 @@ export class PlanningWorkdayItemComponent implements OnChanges {
     @Input() remainingTasks: number | string;
 
     @Output() workdayRemoved = new EventEmitter<string>();
- 
+   
+
     ngOnChanges(changes: SimpleChanges) {
      for (const propName in changes) {
       this.update(propName, changes[propName].currentValue);
