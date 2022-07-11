@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { WorkdayRoutingModule } from './workday-routing.module';
 import { WorkdayComponent } from './workday/workday.component';
 
 
@@ -8,7 +9,8 @@ import { WorkdayComponent } from './workday/workday.component';
     WorkdayComponent
   ],
   imports: [
-    SharedModule
+    SharedModule,
+    WorkdayRoutingModule
   ]
 })
 export class WorkdayModule { }

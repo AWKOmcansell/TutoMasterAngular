@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { animFadeIn } from 'src/app/shared/animation/animfadein';
 
   
  
@@ -6,6 +7,9 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
   selector: 'wa-planning-workday-item',
   templateUrl: './planning-workday-item.component.html',
   styles: [
+  ],
+  animations:[
+    animFadeIn
   ]
 })
 export class PlanningWorkdayItemComponent implements OnChanges {
