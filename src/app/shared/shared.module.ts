@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { NgxBootstrapModule } from './modules/ngx-bootstrap.module';
 
@@ -17,7 +18,8 @@ import { NgxBootstrapModule } from './modules/ngx-bootstrap.module';
   exports: [
     CommonModule,
     NgxBootstrapModule,
-    SidenavComponent
+    SidenavComponent,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

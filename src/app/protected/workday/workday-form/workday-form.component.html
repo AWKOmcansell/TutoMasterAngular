@@ -1,0 +1,15 @@
+<form [formGroup]="workdayForm" >
+    <wa-workday-form-date [dueDate]="dueDate"></wa-workday-form-date>
+    <wa-workday-form-tasks [workdayForm]="workdayForm" [tasks]="tasks"></wa-workday-form-tasks>
+    <wa-workday-form-notes></wa-workday-form-notes>
+    {{ workdayForm.value | json }}
+     <div class="text-right">
+     <button
+      (click)="submit()"
+      type="submit"
+      class="btn btn-success btn-lg"
+      [disabled]="workdayForm.invalid">
+      Sauvegarder
+     </button>
+    </div>
+   </form>
