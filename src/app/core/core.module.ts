@@ -1,29 +1,36 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlertModule } from 'ngx-bootstrap/alert';
 import { ProtectedModule } from '../protected/protected.module';
 import { PublicModule } from '../public/public.module';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { FootbarComponent } from './components/footbar/footbar.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-
+import { ToastrComponent } from './components/toastr/toastr.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     FootbarComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoaderComponent,
+    ToastrComponent
   ],
   imports: [
     CommonModule,
     PublicModule,
     ProtectedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AlertModule.forRoot(),
   ],
   exports: [
     NavbarComponent,
     FootbarComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoaderComponent,
+    ToastrComponent
   ]
 })
 export class CoreModule {

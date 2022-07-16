@@ -1,7 +1,8 @@
 <form [formGroup]="workdayForm" >
     <wa-workday-form-date [dueDate]="dueDate"></wa-workday-form-date>
     <wa-workday-form-tasks [workdayForm]="workdayForm" [tasks]="tasks"></wa-workday-form-tasks>
-    <wa-workday-form-notes></wa-workday-form-notes>
+    <wa-workday-form-notes [notes]="notes"></wa-workday-form-notes>
+</form>
     {{ workdayForm.value | json }}
      <div class="text-right">
      <button
@@ -12,4 +13,3 @@
       Sauvegarder
      </button>
     </div>
-   </form>
