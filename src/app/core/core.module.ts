@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertModule } from 'ngx-bootstrap/alert';
@@ -24,6 +25,7 @@ import { ToastrComponent } from './components/toastr/toastr.component';
     ProtectedModule,
     BrowserAnimationsModule,
     AlertModule.forRoot(),
+    HttpClientModule
   ],
   exports: [
     NavbarComponent,
