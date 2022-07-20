@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, delay, finalize, switchMap, tap } from 'rxjs/operators';
 import { environment } from './../../../environments/environment';
 import { User } from './../../shared/models/user';
 import { ErrorService } from './error.service';
@@ -21,7 +22,8 @@ export class AuthService {
     private http: HttpClient,
     private usersService: UsersService,
     private errorService: ErrorService,
-    private loaderService: LoaderService) { }
+    private loaderService: LoaderService,
+    private router: Router) { }
 
   public login(email: string, password: string): Observable<User | null> {
     const url = `${environment.firebase.auth.baseURL}/verifyPassword?key=
@@ -35,7 +37,19 @@ export class AuthService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.post<User>(url, data, httpOptions);
+    this.loaderService.setLoading(true);
+
+    return this.http.post<User>(url, data, httpOptions).pipe(
+      switchMap((data: any) => {
+        const userId: string = data.localId;
+        const jwt: string = data.idToken;
+        return this.usersService.get(userId, jwt);
+      }),
+      tap(user => this.user.next(user)),
+      tap(_ => this.logoutTimer(3600)),
+      catchError(error => this.errorService.handleError(error)),
+      finalize(() => this.loaderService.setLoading(false))
+    );
   }
 
   public register(name: string, email: string, password: string): Observable<User | null> {
@@ -64,12 +78,20 @@ export class AuthService {
         return this.usersService.save(user, jwt);
       }),
       tap(user => this.user.next(user)),
+      tap(_ => this.logoutTimer(3600)),
       catchError(error => this.errorService.handleError(error)),
       finalize(() => this.loaderService.setLoading(false))
     );
   }
 
-  //  logout(): void {
-  //   // return of(null);
-  //  }
+  private logoutTimer(expirationTime: number): void {
+    of(true).pipe(
+     delay(expirationTime * 1000)
+    ).subscribe(_ => this.logout());
+   }
+
+  logout(): void {
+    this.user.next(null);
+    this.router.navigate(['/login']);
+  }
 }
