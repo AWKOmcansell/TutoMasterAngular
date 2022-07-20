@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { environment } from './../../../environments/environment';
 import { User } from './../../shared/models/user';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
   readonly user$: Observable<User | null> = this.user.asObservable();
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private usersService: UsersService) { }
 
   login(email: string, password: string): Observable<User | null> {
 
@@ -42,16 +43,16 @@ export class AuthService {
     };
     return this.http.post(url, data, httpOptions).pipe(
       switchMap((data: any) => {
-        const jwt: string = data.idToken;
-        const user = new User({
-          email: data.email,
-          id: data.localId,
-          name: name
-        });
-
-        return this.http.post<User>(url, data, httpOptions);
+       const jwt: string = data.idToken;
+       const user = new User({
+        email: data.email,
+        id: data.localId,
+        name: name
+       });
+    
+       return this.usersService.save(user, jwt);
       })
-    );
+     );
   }
 
   //  logout(): void {
