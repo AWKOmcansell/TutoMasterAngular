@@ -43,6 +43,7 @@ export class AuthService {
       switchMap((data: any) => {
         const userId: string = data.localId;
         const jwt: string = data.idToken;
+        this.saveAuthData(userId, jwt);
         return this.usersService.get(userId, jwt);
       }),
       tap(user => this.user.next(user)),
@@ -74,7 +75,7 @@ export class AuthService {
           id: data.localId,
           name: name
         });
-
+        this.saveAuthData(data.localId, jwt);
         return this.usersService.save(user, jwt);
       }),
       tap(user => this.user.next(user)),
@@ -94,4 +95,14 @@ export class AuthService {
     this.user.next(null);
     this.router.navigate(['/login']);
   }
+
+  private saveAuthData(userId: string, token: string) {
+    const now = new Date();
+    const expirationDate = (now.getTime() + 3600 * 1000).toString();
+    localStorage.setItem('expirationDate', expirationDate);
+    localStorage.setItem('token', token);
+    localStorage.setItem('userId', userId);
+   }
+
+
 }
