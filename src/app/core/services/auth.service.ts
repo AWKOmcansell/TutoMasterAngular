@@ -87,14 +87,22 @@ export class AuthService {
 
   private logoutTimer(expirationTime: number): void {
     of(true).pipe(
-     delay(expirationTime * 1000)
+      delay(expirationTime * 1000)
     ).subscribe(_ => this.logout());
-   }
+  }
+
+  autoLogin(user: User) {
+    this.user.next(user);
+    this.router.navigate(['app/dashboard']);
+  }
 
   logout(): void {
+    localStorage.removeItem('expirationDate'); // Ajoutez cette ligne, 
+    localStorage.removeItem('token'); // Et celle-ci aussi,
+    localStorage.removeItem('userId'); // Et enfin celle-là !
     this.user.next(null);
     this.router.navigate(['/login']);
-  }
+   }
 
   private saveAuthData(userId: string, token: string) {
     const now = new Date();
@@ -102,7 +110,8 @@ export class AuthService {
     localStorage.setItem('expirationDate', expirationDate);
     localStorage.setItem('token', token);
     localStorage.setItem('userId', userId);
-   }
+  }
+
 
 
 }
