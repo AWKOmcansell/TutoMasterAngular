@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LayoutService {
-  private isSidenavCollapsed: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private isSidenavCollapsed: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   readonly isSidenavCollapsed$: Observable<boolean> = this.isSidenavCollapsed.asObservable();
   
   constructor() { }

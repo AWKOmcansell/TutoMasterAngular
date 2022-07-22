@@ -7,6 +7,7 @@ import { environment } from './../../../environments/environment';
 import { User } from './../../shared/models/user';
 import { ErrorService } from './error.service';
 import { LoaderService } from './loader.service';
+import { ToastrService } from './toastr.service';
 import { UsersService } from './users.service';
 
 @Injectable({
@@ -17,13 +18,13 @@ export class AuthService {
   private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   readonly user$: Observable<User | null> = this.user.asObservable();
 
-
   constructor(
     private http: HttpClient,
     private usersService: UsersService,
     private errorService: ErrorService,
     private loaderService: LoaderService,
-    private router: Router) { }
+    private router: Router,
+    private toastrService: ToastrService) { }
 
   public login(email: string, password: string): Observable<User | null> {
     const url = `${environment.firebase.auth.baseURL}/verifyPassword?key=
@@ -112,6 +113,22 @@ export class AuthService {
     localStorage.setItem('userId', userId);
   }
 
+  updateUserState(user: User): Observable<User|null> {
+    this.loaderService.setLoading(true);
+    return this.usersService.update(user).pipe(
+      tap(user => this.user.next(user)),
+      tap(_ => this.toastrService.showToastr({
+        category: 'success',
+        message: 'Modification réalisée avec succès'})),
+      catchError(error => this.errorService.handleError(error)),
+      finalize(() => this.loaderService.setLoading(false))
+    );
+   }
+
+   get currentUser(): User|null {
+    return this.user.getValue();
+   }  
+  }
 
 
-}
+

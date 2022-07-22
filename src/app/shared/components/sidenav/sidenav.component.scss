@@ -12,3 +12,13 @@ img{
 .leftNav{
   opacity: 0.2;
 }
+
+.nav-cover {
+  position: relative;
+}
+.img-avatar {
+ position: absolute;
+ bottom: 20px;
+ left: 20px;
+ z-index: 1000;
+}
