@@ -22,7 +22,6 @@ export class ParametersComponent implements OnInit {
      })
     }
     
-
     onSubmit() {
       const user: User|null = this.authService.currentUser;
           if(user) {

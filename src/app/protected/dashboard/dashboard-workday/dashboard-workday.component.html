@@ -1,0 +1,32 @@
+<div *ngIf="!isWorkdayComplete">
+<wa-dashboard-pomodoro-progress 
+    *ngIf="isPomodoroActive" 
+    [progress]="currentProgress" 
+    [maxProgress]="maxProgress">
+</wa-dashboard-pomodoro-progress>
+
+<div *ngIf="!isPomodoroActive" class="text-center my-3">
+    <button (click)="startPodomoro()" class="btn btn-success btn-sm">
+        Démarrer le Pomodoro
+    </button>
+</div>
+
+<div *ngIf="isPomodoroActive" class="text-center my-3">
+    <button (click)="cancelPomodoro()" class="btn btn-sm mr-1">
+        Annuler le Pomodoro
+    </button>
+    <button (click)="completePomodoro()" class="btn btn-success btn-sm">
+        Terminé le Pomodoro
+    </button>
+</div>
+
+<div>
+    <wa-dashboard-task-item *ngFor="let task of workday.tasks" [task]="task">
+    </wa-dashboard-task-item>
+</div>
+</div>
+
+<div *ngIf="isWorkdayComplete" class="text-center mt-5">
+    <p *ngFor="let task of workday.tasks"><s>{{ task.title }}</s></p>
+    <p class="display-4">Job Done ! <img draggable="false" role="img" class="emoji" alt="🎉" src="https://s.w.org/images/core/emoji/13.0.1/svg/1f389.svg"><img draggable="false" role="img" class="emoji" alt="👍" src="https://s.w.org/images/core/emoji/13.0.1/svg/1f44d.svg"></p>
+</div>

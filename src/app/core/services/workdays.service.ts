@@ -66,6 +66,7 @@ export class WorkdaysService {
      finalize(() => this.loaderService.setLoading(false))
     );
    }
+
   getWorkdayByUser(userId: string): any {
     const url = `${environment.firebase.firestore.baseURL}:runQuery?key=${environment.firebase.apiKey}`;
     const data = this.getWorkdayByUserQuery(userId);
